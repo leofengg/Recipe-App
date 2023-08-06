@@ -1,5 +1,5 @@
 import { useState } from "react"
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { useGetUserID } from "../hooks/useGetUserID";
 
@@ -44,7 +44,7 @@ export const CreateRecipe = () => {
         setRecipe({...recipe, ingredients: [...recipe.ingredients, '']})
     }
 
-    return <div className="create-recipe">
+    return (<div className="create-recipe">
         <h2>Create Recipe</h2>
         <form onSubmit={onSubmit}>
             <label htmlFor="name"> Name</label>
@@ -70,6 +70,6 @@ export const CreateRecipe = () => {
 
             <button type="submit">Create Recipe</button>
         </form>
-        </div>
+        </div>)
 }
 
