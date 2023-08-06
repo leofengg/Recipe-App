@@ -7,12 +7,35 @@ const router = express.Router();
 
 router.post('/register', async(req, res) => {
     const {username, password} = req.body;
-
     const user = await UserModel.findOne({username: username});
 
-    res.json(user);
+    if (user) {
+        return res.json({message: "User already exists."});
+    }
+
+    const hashedPw = await bcrypt.hash(password, 10);
+    const newUser = new UserModel({username, password: hashedPw});
+    await newUser.save();
+
+    res.json({message: "Sucessfully registered."});
 });
 
-router.post('/login');
+router.post('/login', async(req, res) => {
+    const {username, password} = req.body;
+    const user = await UserModel.findOne({username});
+
+    if (!user) {
+        return res.json({message: "User doesn't exist"});
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+        return res.json({messsage: "Username or password is incorrect"})
+    }
+
+    const token = jwt.sign({id: user._id}, "secret");
+    res.json({token, userID: user._id});
+});
 
 export {router as userRouter};
