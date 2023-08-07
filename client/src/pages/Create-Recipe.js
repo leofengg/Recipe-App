@@ -8,12 +8,14 @@ export const CreateRecipe = () => {
     const userID = useGetUserID();
 
     const [recipe, setRecipe] = useState({
-        name: '',
+
+        name: "",
         ingredients: [],
-        instructions: '',
-        imageUrl: '',
+        instructions: "",
+        imageUrl: "",
         cookingTime: 0,
         userOwner: userID
+
     });
 
     const navigate = useNavigate();
@@ -22,6 +24,7 @@ export const CreateRecipe = () => {
         const {name, value} = event.target; 
         setRecipe({...recipe, [name]: value})
     }
+
     const handleIngredientChange = (event, idx) => {
         const {value} = event.target;
         const ingredients = [...recipe.ingredients];
@@ -33,15 +36,18 @@ export const CreateRecipe = () => {
         event.preventDefault();
 
         try {
-            await axios.post('http://localhost:5000/recipes', recipe);
+            console.log(recipe);
+            await axios.post('http://localhost:5000/recipes', {...recipe});
             alert("Recipe Created")
             navigate('/')
         } catch (err) {
             console.error(err)
         }
     }
+
     const addIngredient = () => {
         setRecipe({...recipe, ingredients: [...recipe.ingredients, '']})
+        console.log(typeof(recipe.ingredients));
     }
 
     return (<div className="create-recipe">

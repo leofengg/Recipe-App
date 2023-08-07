@@ -11,3 +11,4 @@ const RecipeSchema = new mongoose.Schema({
 })
 
 export const RecipeModel = mongoose.model("recipes", RecipeSchema)
+

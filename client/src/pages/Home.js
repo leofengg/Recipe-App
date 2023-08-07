@@ -5,7 +5,7 @@ import { useGetUserID } from "../hooks/useGetUserID"
 
 export const Home = () => {
     const [recipes, setRecipes] = useState([])
-    //console.log(typeof(recipes));
+
     const userID = useGetUserID();
     useEffect(() => {
         const fetchRecipe = async () => {
