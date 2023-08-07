@@ -7,12 +7,12 @@ export const Home = () => {
     const [recipes, setRecipes] = useState([])
 
     const userID = useGetUserID();
+
     useEffect(() => {
         const fetchRecipe = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/recipes');
                 setRecipes(response.data);
-                console.log(response.data)
             } catch (err) {
                 console.error(err)
             }
@@ -20,15 +20,16 @@ export const Home = () => {
         fetchRecipe();
     }, [])
 
-    const saveRecipe =  async (recipeID) =>  {
-        try {
-            const response = await axios.put('http://localhost:5000/recipes', {recipeID, userID});
-            setRecipes(response.data);
-            console.log(response.data)
-        } catch (err) { 
-            console.error(err)
+        const saveRecipe =  async (recipeID) =>  {
+            try {
+
+                const response = await axios.put('http://localhost:5000/recipes', {recipeID, userID});
+                console.log((response))
+
+            } catch (err) {
+                console.error(err)
+            }
         }
-    }
 
 
     return <div>
