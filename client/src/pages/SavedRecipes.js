@@ -22,19 +22,7 @@ export const SavedRecipes = () => {
 
         fetchSavedRecipe();
 
-    }, [])
-
-
-    const saveRecipe =  async (recipeID) =>  {
-        try {
-
-            const response = await axios.put('http://localhost:5000/recipes', {recipeID, userID});
-            setSavedRecipes(response.data.savedRecipes)
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
+    }, []) 
 
     return <div>
         <h1>Recipes</h1>
