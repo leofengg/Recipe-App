@@ -22,7 +22,7 @@ export const Home = () => {
             try {
                 const response = await axios.get(`http://localhost:5000/recipes/savedRecipes/ids/${userID}`);
                 setSavedRecipes(response.data.savedRecipes)
-                console.log(response.data)
+                console.log(response.data.saveRecipe)
             } catch (err) {
                 console.error(err)
             }
@@ -38,7 +38,6 @@ export const Home = () => {
         try {
 
             const response = await axios.put('http://localhost:5000/recipes', {recipeID, userID});
-            console.log((response))
             setSavedRecipes(response.data.savedRecipes)
         } catch (err) {
             console.error(err)

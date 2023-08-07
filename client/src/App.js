@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Auth } from './pages/Auth';
 import { CreateRecipe } from './pages/Create-Recipe';
-import { SavedRecipies } from './pages/SavedRecipes';
+import { SavedRecipes } from './pages/SavedRecipes';
 import { Navbar } from './components/Navbar';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <Route path="/" element ={<Home />} />
           <Route path="/auth" element ={<Auth />} />
           <Route path="/create-recipe" element ={<CreateRecipe />} />
-          <Route path="/save-recipe" element ={<SavedRecipies />} />
+          <Route path="/saved-recipes" element ={<SavedRecipes />} />
         </Routes>
       </Router>
     </div>
