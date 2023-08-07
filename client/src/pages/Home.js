@@ -4,8 +4,8 @@ import { useGetUserID } from "../hooks/useGetUserID"
 
 
 export const Home = () => {
-    const [recipes, setRecipes] = useState([])
-
+    const [recipes, setRecipes] = useState([]);
+    const [savedRecipes, setSavedRecipes] = useState([]);
     const userID = useGetUserID();
 
     useEffect(() => {
@@ -17,20 +17,35 @@ export const Home = () => {
                 console.error(err)
             }
         }
-        fetchRecipe();
-    }, [])
 
-        const saveRecipe =  async (recipeID) =>  {
+        const fetchSavedRecipe = async () => {
             try {
-
-                const response = await axios.put('http://localhost:5000/recipes', {recipeID, userID});
-                console.log((response))
-
+                const response = await axios.get(`http://localhost:5000/recipes/savedRecipes/ids/${userID}`);
+                setSavedRecipes(response.data.savedRecipes)
+                console.log(response.data)
             } catch (err) {
                 console.error(err)
             }
         }
 
+        fetchRecipe();
+        fetchSavedRecipe();
+
+    }, [])
+
+
+    const saveRecipe =  async (recipeID) =>  {
+        try {
+
+            const response = await axios.put('http://localhost:5000/recipes', {recipeID, userID});
+            console.log((response))
+            setSavedRecipes(response.data.savedRecipes)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const isRecipeSaved = (id) => savedRecipes.includes(id);
 
     return <div>
         <h1>Recipes</h1>
@@ -41,7 +56,10 @@ export const Home = () => {
                         <h2>
                             {recipe.name}
                         </h2>
-                        <button onClick={() => saveRecipe(recipe._id)}>Save</button>
+                        <button onClick={() => saveRecipe(recipe._id)} disabled={isRecipeSaved(recipe._id)}>
+                            {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
+                            
+                        </button>
                     </div>
                     <div className="instructions">
                         <p>{recipe.instructions}</p>
